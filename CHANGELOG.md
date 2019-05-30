@@ -18,12 +18,12 @@
   startup, advisory locks are now used. This should make the startup of parallel
   CATMAID workers more robust.
 
-- The application of migration 82 might take a while to complete, because it
+- The application of migration 88-91 might take a while to complete, because it
   rewrites a potentially big table (treenode_edge). Therefore, make also sure
   that there is enough space available at the database storate location (25% of
   database data directory should be plenty). If no replication is used, setting
-  the following Postgres options can speed up the process: `wal_level = minimal`,
-  `archive_mode = off` and `max_wal_senders = 0`.
+  the following Postgres options can speed up the process: `wal_level =
+  minimal`, `archive_mode = off` and `max_wal_senders = 0`.
 
 - Both `configuration.py.example` and `create_configuration.py` support now the
   option `catmaid_default_enabled_tools`, which defines the list of front-end
