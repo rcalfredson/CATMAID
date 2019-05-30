@@ -17,6 +17,9 @@
   "pg_trgm" has to be installed manually into the CATMAID database using a
   Postgres superuser: CREATE EXTENSION pg_trgm;
 
+- Due to changes in the database schema, migration 70 might take a while to
+  complete.
+
 - CATMAID's version information changes back to a plain `git describe` format.
   This results overall in a simpler setup and makes live easier for some
   third-party front-ends, because the commit counter is included again. The
