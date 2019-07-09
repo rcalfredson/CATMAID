@@ -116,7 +116,7 @@ class Migration(migrations.Migration):
     """
 
     dependencies = [
-        ('catmaid', '0075_make_concept_ids_64_bit'),
+        ('catmaid', '0071_merge_20190620_1630'),
     ]
 
     operations = [
