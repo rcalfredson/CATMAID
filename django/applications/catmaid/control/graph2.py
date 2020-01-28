@@ -109,9 +109,11 @@ def confidence_split_graph(project_id, skeleton_ids, confidence_threshold,
       AND (relation_id = %s OR relation_id = %s)
     ''' % (int(project_id), skids, source_rel_id, target_rel_id))
 
+    print('AAAAAAAAAAAAAAA')
     stc:DefaultDict[Any, List] = defaultdict(list)
     for row in cursor.fetchall():
         stc[row[0]].append(row[1:]) # skeleton_id vs (treenode_id, connector_id, relation_id, confidence)
+        print(row)
 
     # Fetch all treenodes of all skeletons
     cursor.execute('''
@@ -132,6 +134,7 @@ def confidence_split_graph(project_id, skeleton_ids, confidence_threshold,
     current_skid = None
     tree:Optional[nx.DiGraph] = None
     for row in cursor.fetchall():
+        print(row)
         if row[0] == current_skid:
             # Build the tree, breaking it at the low-confidence edges
             if row[2] and row[3] >= confidence_threshold:
@@ -143,6 +146,7 @@ def confidence_split_graph(project_id, skeleton_ids, confidence_threshold,
         if tree:
             nodeIDs.extend(split_by_confidence(current_skid, tree, stc[current_skid], connectors))
 
+        print(nodeIDs)
         # Start the next tree
         current_skid = row[0]
         tree = nx.DiGraph()
@@ -155,10 +159,12 @@ def confidence_split_graph(project_id, skeleton_ids, confidence_threshold,
     # Create the edges of the graph from the connectors, which was populated as a side effect of 'split_by_confidence'
     edges:DefaultDict = defaultdict(partial(defaultdict, make_new_synapse_count_array))  # pre vs post vs count
     for c in connectors.values():
+        print(c)
         for pre in c[source_rel_id]:
             for post in c[target_rel_id]:
                 edges[pre[0]][post[0]][min(pre[1], post[1]) - 1] += 1
 
+    print(edges)
     return {
         'nodes': nodeIDs,
         'edges': [(s, t, count)
