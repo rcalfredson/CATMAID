@@ -325,7 +325,8 @@ def populate_connectors(chunkIDs, chunks, cs, connectors) -> None:
 
 
 def subgraphs(digraph, skeleton_id) -> Tuple[List, Tuple]:
-    chunks = list(weakly_connected_component_subgraphs(digraph))
+    # For consistency and easier testing, sort chunks by size
+    chunks = sorted(weakly_connected_component_subgraphs(digraph), key=len)
     if 1 == len(chunks):
         chunkIDs:Tuple = (str(skeleton_id),) # Note: Here we're loosening the implicit type
     else:
