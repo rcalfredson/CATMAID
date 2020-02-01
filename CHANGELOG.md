@@ -416,6 +416,9 @@ Miscellaneous:
   problem, because all widgets can be reached through the "Open Widget" dialog
   or Ctrl + Space.
 
+- Skeleton bulk updates like splits or joins should now be faster on setups with
+  spatial change events disabled (default).
+
 ### Bug fixes
 
 - Connector list: dates are now display correctly.
