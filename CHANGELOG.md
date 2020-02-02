@@ -41,6 +41,13 @@
   changes for Postgres 12. CATMAID's replication documentation explains what
   needs to be done.
 
+  In Postgres 12, JIT compilation is available to the planner by default. We
+  found that being more conservative with the use of it helped a few common
+  queries (like the tracing data field of view). We set the required minimum
+  cost of JIT use to 1,000,000 in ``postgresql.conf``::
+
+    jit_above_cost = 1000000
+
 - The management command catmaid_populate_summary_tables is now known as
   catmaid_refresh_node_statistics.
 
