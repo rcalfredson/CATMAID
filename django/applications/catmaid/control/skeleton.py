@@ -2934,6 +2934,7 @@ def import_skeleton_swc(user, project_id, swc_string, neuron_id=None,
         g.add_node(node_id, {'x': float(row[2]),
                              'y': float(row[3]),
                              'z': float(row[4]),
+                             'parent_id': parent_id,
                              'radius': float(row[5])})
 
         if parent_id != -1:
